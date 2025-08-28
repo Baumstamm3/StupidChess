@@ -2,7 +2,7 @@
 	"name": "Queen",
 	"icon": false,
 	"fear": false,
-	"movement" [
+	"movement": [
 		"unlimited",
 		"unlimited",
 		"unlimited",
@@ -15,3 +15,4 @@
 	],
 	"attack": "inherit",
 }
+
