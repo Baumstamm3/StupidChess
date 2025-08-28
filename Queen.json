@@ -13,6 +13,7 @@
 		"unlimited",
 		false
 	],
-	"attack": "inherit",
+	"attack": "inherit"
 }
+
 
