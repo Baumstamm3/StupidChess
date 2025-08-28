@@ -1,0 +1,17 @@
+{
+	"name": "Rook",
+	"icon": false,
+	"fear": false,
+	"movement": [
+		false,
+		"unlimited",
+		false,
+		"unlimited",
+		"unlimited",
+		false,
+		"unlimited",
+		false,
+		false
+	],
+	"attack": "inherit",
+}

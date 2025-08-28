@@ -1,0 +1,27 @@
+{
+	"name": "Pawn",
+	"icon": false,
+	"fear": false,
+	"movement": [
+		false,
+		1,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+	],
+	"attack": [
+		1,
+		false,
+		1,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+	]
+}

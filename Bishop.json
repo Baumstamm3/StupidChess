@@ -1,0 +1,17 @@
+{
+	"name": "Bishop",
+	"icon": false,
+	"fear": false,
+	"movement": [
+		"unlimited",
+		false,
+		"unlimited",
+		false,
+		false,
+		"unlimited",
+		false,
+		"unlimited",
+		false
+	],
+	"attack": "inherit",
+}

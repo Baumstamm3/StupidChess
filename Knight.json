@@ -1,0 +1,17 @@
+{
+	"name": "Knight",
+	"icon": false,
+	"fear": false,
+	"movement": [
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		[[1,2]]
+	],
+	"attack": "inherit",
+}
