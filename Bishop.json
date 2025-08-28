@@ -7,11 +7,12 @@
 		false,
 		"unlimited",
 		false,
-		false,
 		"unlimited",
 		false,
 		"unlimited",
+		false,
 		false
 	],
 	"attack": "inherit"
 }
+
