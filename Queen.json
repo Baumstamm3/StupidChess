@@ -10,8 +10,9 @@
 		"unlimited",
 		"unlimited",
 		"unlimited",
-		"unlimited",
+		"beans",
 		false
 	],
 	"attack": "inherit"
 }
+
