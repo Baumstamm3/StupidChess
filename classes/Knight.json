@@ -11,7 +11,6 @@
 		false,
 		false,
 		false,
-		[[1,2]]
-	],
+		[[1,2],[0, 4]],
 	"attack": "inherit"
 }
