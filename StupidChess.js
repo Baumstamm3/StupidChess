@@ -28,7 +28,7 @@ class Occupation {
 }
 
 const gitHeader  = new Headers()
-gitHeader.append("Authorization","Bearer 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")
+gitHeader.append("Authorization","Bearer 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")
 
 const gitRequest = {
 	headers: gitHeader
