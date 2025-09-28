@@ -1,0 +1,45 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body{
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background: grey;
+}
+
+.Topper{
+	flex-grow: 1;
+	background: yellow;
+}
+
+.Spielbrett{
+	margin: 5vh 0 0;
+	flex-grow: 1;
+}
+
+.Zeile{
+	/*height: 1rem;*/
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+.Zelle{
+	font-size: 5vmin;
+	text-align: center;
+	height: 8vmin;
+	width: 8vmin;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	user-select: none;
+	background: white;
+}
+
+.Zelle:hover{
+	box-shadow: inset black 0.05vmin 0.05vmin 0.5px, inset black -0.05vmin -0.05vmin 0.5px;
+}
