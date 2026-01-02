@@ -1,7 +1,6 @@
 {
     "startingPos": [
-        ["Rook", "Knight", "Bishop", "King", "Queen", "Bishop", "Knight","Rook"],
-        ["Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"]
+        []
     ],
     "height": 0 ,
     "width" : 0
