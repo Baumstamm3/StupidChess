@@ -17,16 +17,13 @@ class Column {
 }
 
 class Occupation {
-	constructor(piece, color){
-		if(piece == undefined){
-			this.piece = "King"
-			}else{
-			this.piece = piece
-		}
-		this.color = color
+	constructor(piece, black){
+		this.piece = piece
+		this.black = black
 	}
 }
 const accessToken = "Bearer github" + "_pat_11BWUI2XA0f3ZlbacqfOAf_qdkFCZTQHB7QEVma5WXh9gGY4FhNpGXTgydR4g4VqxFRKYUE44NiQZ7Bm3b"
+//github blocks push-requests if the document includes a PAT
 
 const gitHeader  = new Headers()
 gitHeader.append("Authorization", accessToken)
@@ -45,7 +42,7 @@ let classesNames = []
 
 async function load(){
 	await acquireData(classes, classesNames,`classes/`)
-	await generate()
+	generate()
 }
 
 async function acquireData(map, names ,folder){
@@ -181,13 +178,13 @@ function calcMovement(x, y){
 		for(let i = 0; i < movementKnight.length; i++){
 			//this is a mess and I'm not about to fix it. At least it makes some kind of sense.
 			let maskKnight = [
-				[movementKnight[i][0], movementKnight[i][1]],
-				[movementKnight[i][0], -movementKnight[i][1]],
-				[-movementKnight[i][0], movementKnight[i][1]],
+				[ movementKnight[i][0],  movementKnight[i][1]],
+				[ movementKnight[i][0], -movementKnight[i][1]],
+				[-movementKnight[i][0],  movementKnight[i][1]],
 				[-movementKnight[i][0], -movementKnight[i][1]],
-				[movementKnight[i][1], movementKnight[i][0]],
-				[movementKnight[i][1], -movementKnight[i][0]],
-				[-movementKnight[i][1], movementKnight[i][0]],
+				[ movementKnight[i][1],  movementKnight[i][0]],
+				[ movementKnight[i][1], -movementKnight[i][0]],
+				[-movementKnight[i][1],  movementKnight[i][0]],
 				[-movementKnight[i][1], -movementKnight[i][0]]
 			]
 			for(let j = 0; j < maskKnight.length; j++){
