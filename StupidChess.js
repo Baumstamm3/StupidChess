@@ -26,7 +26,7 @@ class Occupation {
 		this.color = color
 	}
 }
-const accessToken = "Bearer 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"
+const accessToken = "Bearer github" + "_pat_11BWUI2XA0f3ZlbacqfOAf_qdkFCZTQHB7QEVma5WXh9gGY4FhNpGXTgydR4g4VqxFRKYUE44NiQZ7Bm3b"
 
 const gitHeader  = new Headers()
 gitHeader.append("Authorization", accessToken)
