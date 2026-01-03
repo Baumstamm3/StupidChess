@@ -157,9 +157,10 @@ function fieldBackgroundPiece(space){
 		for(let i = 0; i < fields.length; i++){
 			document.getElementById(fields[i]).style.background = "red"
 		}
-	}else{
-		document.getElementById(space.id).style.background = "#F2F2F2"
 	}
+		
+	document.getElementById(space.id).style.background = "#F2F2F2"
+	
 }
 
 function calcMovement(x, y){
