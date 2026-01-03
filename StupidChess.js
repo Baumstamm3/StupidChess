@@ -159,7 +159,7 @@ function fieldBackgroundPiece(space){
 		}
 	}
 		
-	document.getElementById(space.id).style.background = "#F2F2F2"
+	document.getElementById(space.id).style.background = "#E2E2E2"
 	
 }
 
