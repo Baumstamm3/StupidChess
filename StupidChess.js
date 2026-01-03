@@ -10,8 +10,10 @@ class Board {
 
 		for(let i = 0; i < map.startingPos.length; i++){
 			for(let j = 0; j < this.columns; j++){
-				this.tile = [j, i, new Occupation(map.startingPos[i][j], false)]
-				this.tile = [this.rows - j - 1, i, new Occupation(map.startingPos[i][j], true)]
+				if(map.startingPos[i][j]){
+					this.tile = [j, i, new Occupation(map.startingPos[i][j], false)]
+					this.tile = [this.rows - j - 1, i, new Occupation(map.startingPos[i][j], true)]
+				}
 			}
 		}
 
