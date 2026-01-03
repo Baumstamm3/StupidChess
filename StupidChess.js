@@ -1,5 +1,6 @@
 class Board {
 	constructor(map){
+		//Generierung der Datenstruktur
 		this.rows = map.rows
 		this.columns = map.columns
 
@@ -25,8 +26,33 @@ class Board {
 			}
 		}
 
+		console.log("Board: " + JSON.stringify(board))
+
+		//Generation der HTML-Struktur aus der Datenstruktur
+		let grid = ''
+
+		for(let y = 0; y < this.rows; y++){
+			grid += `<div id="Zeile ${y}" class="Zeile">`
+		
+			for(let x = 0; x < this.columns; x++){
+				grid +=`<div id="Zelle ${x} ${y}" class="Zelle" onclick="clickZelle(this)"></div>`
+			}
+		
+			grid += `</div>\n`;
+		}
+
+		document.getElementById("Spielbrett").innerHTML = grid
+
+		//Generation der Event Listener
+		for(let y = 0; y < this.rows; y++){
+			for(let x = 0; x < this.columns; x++){
+				document.getElementById(`Zelle ${x} ${y}`).addEventListener("mouseenter", (event) => fieldBackgroundPiece(event.target))
+				document.getElementById(`Zelle ${x} ${y}`).addEventListener("mouseleave", (event) => fieldBackgroundBlank())
+			}
+		}
 	}
 
+	//Methoden
 	set tile([x ,y , occ]){
 		this.row[y].column[x] = occ
 	}
@@ -67,18 +93,15 @@ const gitRequest = {
 	headers: gitHeader
 }
 
-let gridHeight
-let gridWidth  
-
 let board = new Board(gridHeight, gridWidth)
 
 let classes = new Map()
 let classesNames = []
 
-//async function load(){
+async function load(){
 	await acquireData(classes, classesNames,`classes/`)
 	generate()
-//}
+}
 
 async function acquireData(map, names ,folder){
 	
@@ -109,39 +132,6 @@ async function gitFetchJSON(repo, path){
 	
 	return JSON.parse( atob( data.content ) )
 }
-
-function generate(){	
-	document.getElementById("Spielbrett").innerHTML = generateGrid(gridHeight, gridWidth);
-	generateGridListeners(gridHeight, gridWidth)
-};
-
-function generateGrid(height,width){
-	
-	let grid = ``;
-	for(let y = 0; y < height; y++){
-		grid += `<div id="Zeile ${y}" class="Zeile">`
-		
-		for(let x = 0; x < width; x++){
-			grid +=`<div id="Zelle ${x} ${y}" class="Zelle" onclick="clickZelle(this)"></div>`
-			
-			board.row[y].column[x] = new Occupation(rngClass(),false)
-		}
-		
-		grid += `</div>\n`;
-	}
-	console.log("Board: " + JSON.stringify(board))
-	return grid;
-}
-
-function generateGridListeners(height, width){
-	for(let y = 0; y < height; y++){
-		for(let x = 0; x < width; x++){
-			document.getElementById(`Zelle ${x} ${y}`).addEventListener("mouseenter", (event) => fieldBackgroundPiece(event.target))
-			document.getElementById(`Zelle ${x} ${y}`).addEventListener("mouseleave", (event) => fieldBackgroundBlank())
-		}
-	}
-}
-
 
 function clickZelle(object){
 	console.log(object.id)
@@ -236,11 +226,6 @@ function calcMovement(x, y){
 	}
 	
 	return coordinates
-}
-
-function rngClass(){
-	return classesNames[Math.floor(Math.random() * classesNames.length)]
-	
 }
 
 //Abfolge der Funktionen jeden Zug:
