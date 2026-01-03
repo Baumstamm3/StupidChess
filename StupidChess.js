@@ -1,9 +1,41 @@
 class Board {
-	constructor(boardHeight, boardWidth){
+	constructor(map){
+		this.rows = map.rows
+		this.columns = map.columns
+
 		this.row = []
-		for(let i = 0; i < boardHeight; i++){
-			this.row[i] = new Column(boardWidth)
+		for(let i = 0; i < this.rows; i++){
+			this.row[i] = new Column(this.columns)
 		}
+
+		for(let i = 0; i < map.startingPos.length; i++){
+			for(let j = 0; j < this.columns; j++){
+				this.tile = [j, i, new Occupation(map.startingPos[i][j], false)]
+				this.tile = [this.rows - j - 1, i, new Occupation(map.startingPos[i][j], true)]
+			}
+		}
+
+		for(let y = 0; y < this.rows; y++){
+			for(let x = 0; x < this.columns; x++){
+				if(this.get(x, y) == undefined){
+					this.tile = [x, y, false]
+				}
+			}
+		}
+
+	}
+
+	set tile([x ,y , occ]){
+		this.row[y].column[x] = occ
+	}
+
+	get(x, y){
+		return this.row[y].column[x]
+	}
+
+	move([xOld,yOld],[xNew,yNew]){
+		this.tile = [xNew, yNew, this.get(xOld, yOld)]
+		this.tile = [xOld, yOld, false]
 	}
 }
 
@@ -22,8 +54,9 @@ class Occupation {
 		this.black = black
 	}
 }
+
 const accessToken = "Bearer github" + "_pat_11BWUI2XA0f3ZlbacqfOAf_qdkFCZTQHB7QEVma5WXh9gGY4FhNpGXTgydR4g4VqxFRKYUE44NiQZ7Bm3b"
-//github blocks push-requests if the document includes a PAT
+//github blocks push-requests if the document includes a detectable PAT
 
 const gitHeader  = new Headers()
 gitHeader.append("Authorization", accessToken)
@@ -32,18 +65,18 @@ const gitRequest = {
 	headers: gitHeader
 }
 
-const gridHeight = 8;
-const gridWidth  = 8;
+let gridHeight
+let gridWidth  
 
 let board = new Board(gridHeight, gridWidth)
 
 let classes = new Map()
 let classesNames = []
 
-async function load(){
+//async function load(){
 	await acquireData(classes, classesNames,`classes/`)
 	generate()
-}
+//}
 
 async function acquireData(map, names ,folder){
 	
@@ -99,10 +132,10 @@ function generateGrid(height,width){
 }
 
 function generateGridListeners(height, width){
-	for(let i = 0; i < height; i++){
-		for(let j = 0; j < width; j++){
-			document.getElementById(`Zelle ${j} ${i}`).addEventListener("mouseenter", (event) => fieldBackgroundPiece(event.target))
-			document.getElementById(`Zelle ${j} ${i}`).addEventListener("mouseleave", (event) => fieldBackgroundBlank())
+	for(let y = 0; y < height; y++){
+		for(let x = 0; x < width; x++){
+			document.getElementById(`Zelle ${x} ${y}`).addEventListener("mouseenter", (event) => fieldBackgroundPiece(event.target))
+			document.getElementById(`Zelle ${x} ${y}`).addEventListener("mouseleave", (event) => fieldBackgroundBlank())
 		}
 	}
 }
@@ -150,14 +183,12 @@ function calcMovement(x, y){
 	for(let i = 0; i < mask.length; i++){
 		let counter
 		if(movement[i] == `unlimited`){
-			if(gridHeight > gridWidth){
-				counter = gridHeight
-				}else{
-				counter = gridWidth
-			}
-			}else if(movement[i]){
+			
+			counter = gridHeight > gridWidth ? gridHeight : gridWidth
+
+		}else if(movement[i]){
 			counter = movement[i]
-			}else{
+		}else{
 			counter = 0
 		}
 		

@@ -3,6 +3,6 @@
         ["Rook", "Knight", "Bishop", "King", "Queen", "Bishop", "Knight","Rook"],
         ["Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"]
     ],
-    "height": 8,
-    "width" : 8
+    "rows": 8,
+    "columns" : 8
 }
