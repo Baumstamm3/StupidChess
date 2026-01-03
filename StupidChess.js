@@ -93,14 +93,14 @@ const gitRequest = {
 	headers: gitHeader
 }
 
-let board = new Board(gridHeight, gridWidth)
+const chessboard = gitFetchJSON("StupidChess","maps/Chess.json")
+let board = new Board(chessboard)
 
 let classes = new Map()
 let classesNames = []
 
 async function load(){
 	await acquireData(classes, classesNames,`classes/`)
-	generate()
 }
 
 async function acquireData(map, names ,folder){
