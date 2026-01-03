@@ -12,8 +12,8 @@ class Board {
 		for(let i = 0; i < map.startingPos.length; i++){
 			for(let j = 0; j < this.columns; j++){
 				if(map.startingPos[i][j]){
-					this.tile = [j, i, new Occupation(map.startingPos[i][j], false)]
-					this.tile = [this.rows - j - 1, i, new Occupation(map.startingPos[i][j], true)]
+					this.tile = [j, i, new Occupation(map.startingPos[i][j], true)]
+					this.tile = [j, this.rows - i - 1, new Occupation(map.startingPos[i][j], false)]
 				}
 			}
 		}
@@ -26,7 +26,7 @@ class Board {
 			}
 		}
 
-		console.log("Board: " + JSON.stringify(board))
+		console.log("Board: " + JSON.stringify(this.row) )
 
 		//Generation der HTML-Struktur aus der Datenstruktur
 		let grid = ''
@@ -93,13 +93,15 @@ const gitRequest = {
 	headers: gitHeader
 }
 
-const chessboard = gitFetchJSON("StupidChess","maps/Chess.json")
-let board = new Board(chessboard)
+let board
 
 let classes = new Map()
 let classesNames = []
 
 async function load(){
+	const chessboard = await gitFetchJSON("StupidChess","maps/Chess.json")
+
+	board = new Board(chessboard)
 	await acquireData(classes, classesNames,`classes/`)
 }
 
@@ -138,21 +140,25 @@ function clickZelle(object){
 }
 
 function fieldBackgroundBlank(){
-	for(let i = 0; i < gridHeight; i++){
-		for(let j = 0; j < gridWidth; j++){
+	for(let i = 0; i < board.rows; i++){
+		for(let j = 0; j < board.columns; j++){
 			document.getElementById(`Zelle ${j} ${i}`).style.background = `#FFFFFF`
 		}
 	}
 }
 
 function fieldBackgroundPiece(space){
+
 	let x = parseInt(space.id.split(" ")[1])
 	let y = parseInt(space.id.split(" ")[2])
-	let fields = calcMovement(x, y)
-	
-	
-	for(let i = 0; i < fields.length; i++){
-		document.getElementById(fields[i]).style.background = "red"
+	if(board.get(x,y)){
+		let fields = calcMovement(x, y)
+		
+		for(let i = 0; i < fields.length; i++){
+			document.getElementById(fields[i]).style.background = "red"
+		}
+	}else{
+		document.getElementById(space.id).style.background = "#F2F2F2"
 	}
 }
 
@@ -168,15 +174,16 @@ function calcMovement(x, y){
 		[-1, 0]
 	]
 	
-	let movement = classes.get(board.row[y].column[x].piece).movement
+	let movement = classes.get(board.get(x, y).piece).movement
 	
+	let direction = board.get(x, y).black ? -1 : 1
 	let coordinates = [];
 	
 	for(let i = 0; i < mask.length; i++){
 		let counter
 		if(movement[i] == `unlimited`){
 			
-			counter = gridHeight > gridWidth ? gridHeight : gridWidth
+			counter = board.rows > board.columns ? board.rows : board.columns
 
 		}else if(movement[i]){
 			counter = movement[i]
@@ -186,11 +193,11 @@ function calcMovement(x, y){
 		
 		for(let j = 0; j < counter; j++){
 			
-			let xOffset = x + mask[i][0]*(j+1)
-			let yOffset = y + mask[i][1]*(j+1)
+			let xOffset = x + mask[i][0] * (j+1) * direction
+			let yOffset = y + mask[i][1] * (j+1) * direction
 			
-			if(xOffset < 0 || xOffset >= gridWidth ){break}
-			if(yOffset < 0 || yOffset >= gridHeight){break}
+			if(xOffset < 0 || xOffset >= board.columns ){break}
+			if(yOffset < 0 || yOffset >= board.rows    ){break}
 			
 			coordinates[coordinates.length] = `Zelle ${xOffset} ${yOffset}`
 		}
@@ -199,7 +206,7 @@ function calcMovement(x, y){
 	if(movement[8]){
 		let movementKnight = movement[8]
 		for(let i = 0; i < movementKnight.length; i++){
-			//this is a mess and I'm not about to fix it. At least it makes some kind of sense.
+			//this is a mess and I'm not about to fix it. At least there's a semblance of sense.
 			let maskKnight = [
 				[ movementKnight[i][0],  movementKnight[i][1]],
 				[ movementKnight[i][0], -movementKnight[i][1]],
@@ -215,8 +222,8 @@ function calcMovement(x, y){
 				let xOffset = x + maskKnight[j][0]
 				let yOffset = y + maskKnight[j][1]
 				
-				if(xOffset < 0 || xOffset >= gridWidth ){available = false}
-				if(yOffset < 0 || yOffset >= gridHeight){available = false}
+				if(xOffset < 0 || xOffset >= board.columns ){available = false}
+				if(yOffset < 0 || yOffset >= board.rows    ){available = false}
 				
 				if(available){				
 					coordinates[coordinates.length] = `Zelle ${xOffset} ${yOffset}`
