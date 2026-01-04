@@ -1,7 +1,9 @@
 {
     "startingPos": [
-        ["Rook", "Knight", "Bishop", "King", "Queen", "Bishop", "Knight","Rook"],
-        ["Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"]
+        ["Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen"],
+        ["Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen"],
+        ["Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen"],
+        ["Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen", "Queen"]
     ],
     "rows": 8,
     "columns" : 8

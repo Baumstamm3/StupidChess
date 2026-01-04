@@ -1,0 +1,8 @@
+{
+    "startingPos": [
+        ["Rook", "Knight", "Bishop", "King", "Queen", "Bishop", "Knight","Rook"],
+        ["Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"]
+    ],
+    "rows": 8,
+    "columns" : 8
+}
