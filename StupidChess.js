@@ -100,9 +100,8 @@ let classesNames = []
 
 async function load(){
 	const chessboard = await gitFetchJSON("StupidChess","maps/Chess.json")
-
-	board = new Board(chessboard)
 	await acquireData(classes, classesNames,`classes/`)
+	board = new Board(chessboard)
 }
 
 async function acquireData(map, names ,folder){
